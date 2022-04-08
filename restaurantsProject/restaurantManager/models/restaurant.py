@@ -16,6 +16,6 @@ class Restaurant(BaseModel):
     stars = models.FloatField(default=0)
     review_cnt = models.IntegerField(default=0)
     is_open = models.BooleanField(default=0)
-    attributes = models.JSONField(default={})
+    attributes = models.JSONField(default=dict)
     categories = models.ManyToManyField(Category)
 
