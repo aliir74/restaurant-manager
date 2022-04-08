@@ -1,8 +1,8 @@
 from django.db import models
 
 from restaurantManager.models.base import BaseModel
-from restaurantManager.models import User
-from restaurantManager.models import Restaurant
+from restaurantManager.models.user import User
+from restaurantManager.models.restaurant import Restaurant
 
 
 class Review(BaseModel):
