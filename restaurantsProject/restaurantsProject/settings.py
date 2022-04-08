@@ -128,3 +128,46 @@ STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(os.path.dirname(BASE_DIR), "
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+
+LOGGING = {
+        'core.handlers': {
+            'level': 'DEBUG',
+            'handlers': ['console']
+        },
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'default': {
+                'format': '[DJANGO] %(levelname)s %(asctime)s %(module)s '
+                          '%(name)s.%(funcName)s:%(lineno)s: %(message)s'
+            },
+        },
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'default',
+            }
+        },
+        'loggers': {
+            '*': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': True,
+            }
+        },
+    }

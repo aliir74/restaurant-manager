@@ -13,5 +13,5 @@ class Review(BaseModel):
     useful = models.IntegerField(default=0)
     funny = models.IntegerField(default=0)
     cool = models.IntegerField(default=0)
-    text = models.CharField(max_length=300, null=False)  # TODO: check we have only star reviews or not
+    text = models.CharField(max_length=5000, null=False)  # TODO: check we have only star reviews or not
     publish_date = models.DateTimeField(null=False)
