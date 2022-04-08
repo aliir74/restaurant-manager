@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.gis.db import models as gis_models
 
 from restaurantManager.models.base import BaseModel
-from restaurantManager.models.category import Category
+from restaurantManager.models import Category
 
 
 class Restaurant(BaseModel):

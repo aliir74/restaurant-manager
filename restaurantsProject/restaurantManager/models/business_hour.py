@@ -1,7 +1,7 @@
 from django.db import models
 
 from restaurantManager.models.base import BaseModel
-from restaurantManager.models.restaurant import Restaurant
+from restaurantManager.models import Restaurant
 
 
 class BusinessHours(BaseModel):
