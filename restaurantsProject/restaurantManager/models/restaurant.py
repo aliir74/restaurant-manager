@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 
 from restaurantManager.models.base import BaseModel
 from restaurantManager.models.category import Category
@@ -19,3 +19,8 @@ class Restaurant(BaseModel):
     attributes = models.JSONField(default=dict, null=True)
     categories = models.ManyToManyField(Category)
 
+    @transaction.atomic
+    def add_stars(self, star):
+        self.stars = ((self.stars * self.review_cnt) + star) / (self.review_cnt + 1)
+        self.review_cnt += 1
+        self.save()

@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 
 from restaurantManager.models.base import BaseModel
 from restaurantManager.models.user import User
@@ -15,3 +15,13 @@ class Review(BaseModel):
     cool = models.IntegerField(default=0)
     text = models.CharField(max_length=5000, null=False)  # TODO: check we have only star reviews or not
     publish_date = models.DateTimeField(null=False)
+
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        if not self.pk:  # create process
+            self.user.add_stars(self.stars)
+            self.restaurant.add_stars(self.stars)
+            super().save(*args, **kwargs)
+        else:  # update process
+            pass
+            # TODO: handle update review?
