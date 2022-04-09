@@ -7,7 +7,7 @@ from restaurantManager.serializers import ReviewWriteSerializer, ReviewReadSeria
 
 # TODO: Permission
 # TODO: Swagger
-
+# TODO: Pagination
 
 class ReviewDetail(generics.RetrieveDestroyAPIView):
     queryset = ReviewModel.objects.all()
@@ -37,3 +37,9 @@ class ReviewList(mixins.CreateModelMixin, generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.reviews.all()
+
+
+class RestaurantReviews(generics.ListAPIView):  # get review of one restaurant
+    queryset = ReviewModel.objects.all()
+    serializer_class = ReviewReadSerializer
+    lookup_field = 'restaurant__business_id'
