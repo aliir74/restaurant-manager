@@ -9,7 +9,6 @@ from restaurantManager.permissions import IsOwnerOrReadOnly, IsOwner
 
 
 # TODO: Swagger
-# TODO: Pagination
 
 class ReviewDetail(generics.RetrieveDestroyAPIView):
     queryset = ReviewModel.objects.all()

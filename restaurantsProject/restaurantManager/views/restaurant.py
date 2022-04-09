@@ -1,5 +1,6 @@
 from rest_framework import generics
-from rest_framework import mixins
+from django.db.models import F
+from django.db.models.functions import Exp
 
 from restaurantManager.models import Restaurant as RestaurantModel
 from restaurantManager.serializers import RestaurantReadSerializer
@@ -22,6 +23,6 @@ class RestaurantList(generics.ListAPIView):
         queryset = RestaurantModel.objects.all()
         category = self.request.query_params.get('category')
         if category:
-            return queryset.filter(categories__name=category).extra(select={'score': 'stars * LN(review_cnt)'})\
-                .extra(order_by=['-score'])
+            return queryset.filter(categories__name=category).annotate(ordering=F('stars') * Exp('review_cnt')).\
+                order_by('-ordering')
         return queryset
