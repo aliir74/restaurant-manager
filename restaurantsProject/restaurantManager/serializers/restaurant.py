@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from restaurantManager.models import Restaurant
-from restaurantManager.serializers import BusinessHourSerializer, ReviewReadSerializer
+from restaurantManager.serializers.business_hour import BusinessHourSerializer
+from restaurantManager.serializers.review import ReviewReadSerializer
 
 
 class RestaurantReadSerializer(serializers.ModelSerializer):
