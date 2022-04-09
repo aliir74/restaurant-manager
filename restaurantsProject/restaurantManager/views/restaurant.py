@@ -13,3 +13,8 @@ class RestaurantDetail(generics.RetrieveAPIView):  # get detail of the restauran
     queryset = RestaurantModel.objects.all()
     serializer_class = RestaurantReadSerializer
     lookup_field = 'business_id'
+
+
+class RestaurantList(generics.ListAPIView):
+    queryset = RestaurantModel.objects.all()
+    serializer_class = RestaurantReadSerializer
