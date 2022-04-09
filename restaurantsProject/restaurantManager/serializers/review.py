@@ -3,6 +3,7 @@ from django.utils import timezone
 import uuid
 
 from restaurantManager.models import Review, Restaurant
+from restaurantManager.serializers.limited_list import LimitedListSerializer
 
 
 class ReviewWriteSerializer(serializers.ModelSerializer):
@@ -39,4 +40,10 @@ class ReviewReadSerializer(serializers.ModelSerializer):
                   'publish_date']
 
 
+class ReviewReadSerializerLimited(ReviewReadSerializer):
 
+    class Meta:
+        list_serializer_class = LimitedListSerializer
+        model = Review
+        fields = ['review_id', 'username', 'restaurant_name', 'stars', 'text', 'useful', 'funny', 'cool',
+                  'publish_date']
