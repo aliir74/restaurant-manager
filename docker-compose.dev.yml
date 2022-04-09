@@ -1,8 +1,6 @@
 version: "3.7"
 
 services:
-  redis:
-    image: redis:latest
   db:
     image: postgres:latest
     volumes:
@@ -23,7 +21,6 @@ services:
       - .env
     depends_on:
       - db
-      - redis
     command: >
       /bin/bash -c "
       python manage.py migrate &&

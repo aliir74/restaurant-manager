@@ -1,8 +1,6 @@
 version: "3.7"
 
 services:
-  redis:
-    image: redis:latest
   db:
     image: postgres:latest
     volumes:
@@ -23,14 +21,12 @@ services:
       - .env
     depends_on:
       - db
-      - redis
     command: >
       /bin/bash -c "
       python manage.py migrate &&
       rm -rf seed_data && 
       gunicorn restaurantsProject.wsgi:application --bind 0.0.0.0:8000
       "
-#       TODO: Test rm -rf
   nginx:
     build: ./nginx
     ports:
