@@ -5,14 +5,14 @@ reviews. Also, the project has 2 endpoint for search restaurants.
 ## Development
 - Install docker and docker-compose.
 - Run `cp .env.sample .env` and fill `.env` file.
-- Run `docker-compose -f docker-compose.dev.yml up --build`.
+- Run `docker-compose -f docker-compose.dev.yml up --build`. It may take some time (because seeding initial data).
 - The service is run under `0.0.0.0:8000` and update after each file changes.
 
 ## Deployment
 - Install docker and docker-compose.
 - Run `cp .env.sample .env` and fill `.env` file.
-- Run `docker-compose -f docker-compose.prod.yml up --build`.
-- The service is run under `yourserverip/domain`.
+- Run `docker-compose -f docker-compose.prod.yml up --build`. It may take some time (because seeding initial data).
+- The service is run under `yourserverip` or `domain`.
 
 [//]: # (## Rest API Documents)
 [//]: # (- You can see api documentations under `/swagger` or `/redoc` urls.)
