@@ -18,3 +18,9 @@ class RestaurantDetail(generics.RetrieveAPIView):  # get detail of the restauran
 class RestaurantList(generics.ListAPIView):
     queryset = RestaurantModel.objects.all()
     serializer_class = RestaurantReadSerializer
+
+    def get_queryset(self):
+        category = self.request.query_params.get('category')
+        if category:
+            return self.queryset.filter(categories__name=category)
+        return self.queryset
