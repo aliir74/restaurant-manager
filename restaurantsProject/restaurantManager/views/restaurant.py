@@ -22,5 +22,6 @@ class RestaurantList(generics.ListAPIView):
     def get_queryset(self):
         category = self.request.query_params.get('category')
         if category:
-            return self.queryset.filter(categories__name=category)
+            return self.queryset.filter(categories__name=category).extra(select={'score': 'stars * LN(review_cnt)'})\
+                .extra(order_by=['-score'])
         return self.queryset

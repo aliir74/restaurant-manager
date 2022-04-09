@@ -1,3 +1,5 @@
+import math
+
 from django.db import models, transaction
 
 from restaurantManager.models.base import BaseModel
@@ -18,6 +20,11 @@ class Restaurant(BaseModel):
     is_open = models.BooleanField(default=0)
     attributes = models.JSONField(default=dict, null=True)
     categories = models.ManyToManyField(Category)
+
+    @property
+    def score(self):  # this formula used in category search restaurant order (it's duplicated and
+        # you should change that in view file if you want)
+        return self.stars*math.log(self.review_cnt)
 
     @transaction.atomic
     def add_stars(self, star):
