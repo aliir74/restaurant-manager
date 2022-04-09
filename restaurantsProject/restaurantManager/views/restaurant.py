@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework import mixins
 
 from restaurantManager.models import Restaurant as RestaurantModel
-from restaurantManager.serializers import ReviewReadSerializer, RestaurantReadSerializer
+from restaurantManager.serializers import RestaurantReadSerializer
 
 
 # TODO: Permission
@@ -20,8 +20,9 @@ class RestaurantList(generics.ListAPIView):
     serializer_class = RestaurantReadSerializer
 
     def get_queryset(self):
+        queryset = RestaurantModel.objects.all()
         category = self.request.query_params.get('category')
         if category:
-            return self.queryset.filter(categories__name=category).extra(select={'score': 'stars * LN(review_cnt)'})\
+            return queryset.filter(categories__name=category).extra(select={'score': 'stars * LN(review_cnt)'})\
                 .extra(order_by=['-score'])
-        return self.queryset
+        return queryset
