@@ -5,7 +5,6 @@ from restaurantManager.models import Restaurant as RestaurantModel
 from restaurantManager.serializers import RestaurantReadSerializer
 
 
-# TODO: Permission
 # TODO: Swagger
 
 

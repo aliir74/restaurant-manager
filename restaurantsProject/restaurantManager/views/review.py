@@ -8,7 +8,6 @@ from restaurantManager.serializers import ReviewWriteSerializer, ReviewReadSeria
 from restaurantManager.permissions import IsOwnerOrReadOnly, IsOwner
 
 
-# TODO: Permission
 # TODO: Swagger
 # TODO: Pagination
 
@@ -46,7 +45,7 @@ class ReviewUserList(mixins.CreateModelMixin, generics.ListAPIView):
 
 class ReviewList(generics.ListAPIView):
     queryset = ReviewModel.objects.all()
-    read_serializer_class = ReviewReadSerializer
+    serializer_class = ReviewReadSerializer
 
     def get_queryset(self):
         keyword = self.request.query_params.get('keyword')
