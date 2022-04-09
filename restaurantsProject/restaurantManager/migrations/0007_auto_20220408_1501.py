@@ -70,7 +70,7 @@ class DoMigration:
                        stars=float(restaurant.get('stars', 0)), review_cnt=int(restaurant.get('review_count', 0)),
                        is_open=bool(restaurant.get('is_open', 0)),
                        attributes=restaurant.get('attributes', {}))  # TODO: check attributes json field (inner fields)
-            restaurant_category_names = [r.strip() for r in restaurant.get('categories').split(',')]
+            restaurant_category_names = [r for r in restaurant.get('categories').split(', ')]
             for category in restaurant_category_names:
                 if category not in created_categories:
                     created_categories[category] = CategoryModel.objects.create(name=category)
