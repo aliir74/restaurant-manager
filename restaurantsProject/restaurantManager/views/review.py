@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework import mixins
 
 from restaurantManager.models import Review as ReviewModel
-from restaurantManager.serializers import Review as ReviewSerializer
+from restaurantManager.serializers import ReviewWriteSerializer, ReviewReadSerializer
 
 
 # TODO: Permission
@@ -11,7 +11,8 @@ from restaurantManager.serializers import Review as ReviewSerializer
 
 class ReviewDetail(generics.RetrieveDestroyAPIView):
     queryset = ReviewModel.objects.all()
-    serializer_class = ReviewSerializer
+    read_serializer_class = ReviewReadSerializer
+    write_serializer_class = ReviewWriteSerializer
     lookup_field = 'review_id'
 
     def get(self, request, *args, **kwargs):
@@ -27,7 +28,8 @@ class ReviewDetail(generics.RetrieveDestroyAPIView):
 
 class ReviewList(mixins.CreateModelMixin, generics.ListAPIView):
     queryset = ReviewModel.objects.all()
-    serializer_class = ReviewSerializer
+    write_serializer_class = ReviewWriteSerializer
+    read_serializer_class = ReviewReadSerializer
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)

@@ -5,7 +5,7 @@ import uuid
 from restaurantManager.models import Review, Restaurant
 
 
-class ReviewSerializer(serializers.ModelSerializer):
+class ReviewWriteSerializer(serializers.ModelSerializer):
     restaurant_id = serializers.CharField(required=True)
 
     class Meta:
@@ -28,6 +28,15 @@ class ReviewSerializer(serializers.ModelSerializer):
         except ValueError:
             raise serializers.ValidationError({"detail": "This review can't be created."})
 
+
+class ReviewReadSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username')
+    restaurant_name = serializers.CharField(source='restaurant.name')
+
+    class Meta:
+        model = Review
+        fields = ['review_id', 'user_name', 'restaurant_name', 'stars', 'text', 'useful', 'funny', 'cool',
+                  'publish_date']
 
 
 

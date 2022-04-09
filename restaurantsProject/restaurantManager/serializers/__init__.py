@@ -1,6 +1,7 @@
-from restaurantManager.serializers.review import Review
+from restaurantManager.serializers.review import ReviewWriteSerializer, ReviewReadSerializer
 
 
 __all__ = [
-    "Review"
+    "ReviewWriteSerializer",
+    "ReviewReadSerializer"
 ]
