@@ -6,7 +6,7 @@ from restaurantManager.models.restaurant import Restaurant
 
 
 class Review(BaseModel):
-    review_id = models.CharField(max_length=30, null=False)
+    review_id = models.CharField(max_length=32, null=False)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     stars = models.FloatField(default=0)
