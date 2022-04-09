@@ -26,7 +26,7 @@ class ReviewDetail(generics.RetrieveDestroyAPIView):
         return user.reviews.all()
 
 
-class ReviewList(mixins.CreateModelMixin, generics.ListAPIView):
+class ReviewUserList(mixins.CreateModelMixin, generics.ListAPIView):
     queryset = ReviewModel.objects.all()
     write_serializer_class = ReviewWriteSerializer
     read_serializer_class = ReviewReadSerializer
@@ -37,6 +37,17 @@ class ReviewList(mixins.CreateModelMixin, generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.reviews.all()
+
+
+class ReviewList(generics.ListAPIView):
+    queryset = ReviewModel.objects.all()
+    read_serializer_class = ReviewReadSerializer
+
+    def get_queryset(self):
+        keyword = self.request.query_params.get('keyword')
+        if keyword:
+            return self.queryset.filter(text__contains=keyword)
+        return self.queryset
 
 
 class RestaurantReviews(generics.ListAPIView):  # get review of one restaurant
