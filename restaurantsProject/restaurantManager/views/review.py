@@ -12,8 +12,7 @@ from restaurantManager.permissions import IsOwnerOrReadOnly, IsOwner
 
 class ReviewDetail(generics.RetrieveDestroyAPIView):
     queryset = ReviewModel.objects.all()
-    read_serializer_class = ReviewReadSerializer
-    write_serializer_class = ReviewWriteSerializer
+    serializer_class = ReviewReadSerializer
     lookup_field = 'review_id'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
@@ -22,14 +21,9 @@ class ReviewDetail(generics.RetrieveDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-
-    def get_queryset(self):
-        user = self.request.user
-        return user.reviews.all()
-
+    
 
 class ReviewUserList(mixins.CreateModelMixin, generics.ListAPIView):
-    queryset = ReviewModel.objects.all()
     write_serializer_class = ReviewWriteSerializer
     read_serializer_class = ReviewReadSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
@@ -43,17 +37,18 @@ class ReviewUserList(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class ReviewList(generics.ListAPIView):
-    queryset = ReviewModel.objects.all()
     serializer_class = ReviewReadSerializer
 
     def get_queryset(self):
+        queryset = ReviewModel.objects.all()
         keyword = self.request.query_params.get('keyword')
         if keyword:
-            return self.queryset.filter(text__contains=keyword)
-        return self.queryset
+            return queryset.filter(text__contains=keyword)
+        return queryset
 
 
 class RestaurantReviews(generics.ListAPIView):  # get review of one restaurant
-    queryset = ReviewModel.objects.all()
     serializer_class = ReviewReadSerializer
-    lookup_field = 'restaurant__business_id'
+
+    def get_queryset(self):
+        return ReviewModel.objects.filter(restaurant__business_id=self.kwargs['business_id'])
