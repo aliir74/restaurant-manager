@@ -6,13 +6,13 @@ from restaurantManager.models.restaurant import Restaurant
 
 class BusinessHours(BaseModel):
     class Days(models.TextChoices):
-        Mon = '1', 'Monday'
-        Tue = '2', 'Tuesday'
-        Wed = '3', 'Wednesday'
-        Thu = '4', 'Thursday'
-        Fri = '5', 'Friday'
-        Sat = '6', 'Saturday'
-        Sun = '7', 'Sunday'
+        Mon = 'Mon', 'Monday'
+        Tue = 'Tue', 'Tuesday'
+        Wed = 'Wed', 'Wednesday'
+        Thu = 'Thu', 'Thursday'
+        Fri = 'Fri', 'Friday'
+        Sat = 'Sat', 'Saturday'
+        Sun = 'Sun', 'Sunday'
 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="business_hours")
     day = models.CharField(max_length=10, choices=Days.choices, null=False)
