@@ -56,11 +56,12 @@ class DoMigration:
 
     @staticmethod
     def create_users(UserModel, users_data):
+        initial_password = make_password("initial_password")
         for user in users_data:
             user_obj = UserModel.objects.create(username=user['user_id'], user_id=user['user_id'], name=user['name'],
-                                            useful=int(user.get('useful')),
-                                            average_stars=float(user.get('average_stars')))
-            user_obj.password = make_password(user['user_id'], None, 'md5')
+                                                useful=int(user.get('useful')),
+                                                average_stars=float(user.get('average_stars')))
+            user_obj.password = initial_password
             user_obj.save()
 
     @staticmethod
