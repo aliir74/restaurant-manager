@@ -71,7 +71,7 @@ class DoMigration:
                        latitude=float(restaurant.get('latitude')), longitude=float(restaurant.get('longitude')),
                        stars=float(restaurant.get('stars', 0)), review_cnt=int(restaurant.get('review_count', 0)),
                        is_open=bool(restaurant.get('is_open', 0)),
-                       attributes=restaurant.get('attributes', {}))  # TODO: check attributes json field (inner fields)
+                       attributes=dict(restaurant.get('attributes', {})))
             restaurant_category_names = [r for r in restaurant.get('categories').split(', ')]
             for category in restaurant_category_names:
                 if category not in created_categories:
