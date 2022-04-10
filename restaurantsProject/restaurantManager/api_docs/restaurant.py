@@ -71,9 +71,18 @@ class RestaurantModelSchema:
                 title="Restaurant Attributes",
                 description="",
                 properties={
-                    "attr1": "value1",
-                    "attr2": "value2",
-                    "attrn": "valuen"
+                    "attr1": Schema(
+                        type=TYPE_STRING,
+                        title="value1"
+                    ),
+                    "attr2": Schema(
+                        type=TYPE_STRING,
+                        title="value2"
+                    ),
+                    "attrn": Schema(
+                        type=TYPE_STRING,
+                        title="valuen"
+                    )
                 }
             ),
             'reviews': Schema(
@@ -265,7 +274,7 @@ class GetAllRestaurant:
             properties=PAGINATION_PROPERTIES | {
                     "results": Schema(
                         type=TYPE_ARRAY,
-                        items=RestaurantModelSchema
+                        items=RestaurantModelSchema.schema
                     )
                 }
         )
@@ -275,6 +284,6 @@ class GetAllRestaurant:
 
 class GetRestaurantDetail:
     RESPONSE_SCHEMA = {
-        status.HTTP_200_OK: RestaurantModelSchema
+        status.HTTP_200_OK: RestaurantModelSchema.schema
     }
     business_id_param = Parameter('business_id', IN_PATH, description="Get Restaurant Details", type=TYPE_STRING)

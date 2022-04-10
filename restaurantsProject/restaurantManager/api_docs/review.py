@@ -75,7 +75,7 @@ class RestaurantReviews:
             properties=PAGINATION_PROPERTIES | {
                 "results": Schema(
                     type=TYPE_ARRAY,
-                    items=ReviewModelSchema
+                    items=ReviewModelSchema.schema
                 )
             }
         )
@@ -90,7 +90,7 @@ class GetAllReviews:
             properties=PAGINATION_PROPERTIES | {
                 "results": Schema(
                     type=TYPE_ARRAY,
-                    items=ReviewModelSchema
+                    items=ReviewModelSchema.schema
                 )
             }
         )
@@ -107,7 +107,7 @@ class GetMyReviews:
             properties=PAGINATION_PROPERTIES | {
                 "results": Schema(
                     type=TYPE_ARRAY,
-                    items=ReviewModelSchema
+                    items=ReviewModelSchema.schema
                 )
             }
         )
@@ -116,7 +116,7 @@ class GetMyReviews:
 
 class GetReviewDetail:
     RESPONSE_SCHEMA = {
-        status.HTTP_200_OK: ReviewModelSchema
+        status.HTTP_200_OK: ReviewModelSchema.schema
     }
     review_id_param = Parameter('review_id', IN_PATH, description="Get Review Details", type=TYPE_STRING)
 
