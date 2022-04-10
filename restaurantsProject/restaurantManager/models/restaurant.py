@@ -1,6 +1,7 @@
 import math
 
 from django.db import models, transaction
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from restaurantManager.models.base import BaseModel
 from restaurantManager.models.category import Category
@@ -15,7 +16,7 @@ class Restaurant(BaseModel):
     postal_code = models.CharField(max_length=16, null=True)
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
-    stars = models.FloatField(default=0)
+    stars = models.FloatField(default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
     review_cnt = models.IntegerField(default=0)
     is_open = models.BooleanField(default=0)
     attributes = models.JSONField(default=dict, null=True)

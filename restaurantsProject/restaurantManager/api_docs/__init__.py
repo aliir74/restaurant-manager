@@ -3,7 +3,8 @@ from drf_yasg.openapi import Schema, Parameter, IN_PATH, \
 
 
 class AuthenticationSchema:
-    auth_param = Parameter('AUTHORIZATION', IN_HEADER, description="You must put your token in this header.",
+    auth_param = Parameter('AUTHORIZATION', IN_HEADER,
+                           description="You must fill this header with 'Token <your-token>'",
                            type=TYPE_STRING)
 
 
