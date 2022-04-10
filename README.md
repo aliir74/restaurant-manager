@@ -14,7 +14,17 @@ reviews. Also, the project has 2 endpoint for search restaurants.
 - Run `docker-compose -f docker-compose.prod.yml up --build`. It may take some time (because seeding initial data).
 - The service is run under `yourserverip` or `domain`.
 
-## Rest API Documents
+## Documents
+### Rest API Documents
 - You can see api documentations under `/swagger` or `/redoc` urls.
 - Also, the pdf file `rest_apis_doc.pdf` is in the root of project.
+
+### Database Diagram
+![Database Diagram](db_schema.png)
+
+### More Details
+- TODO:
+
+### Future Works
+- TODO:
 
