@@ -68,17 +68,18 @@ class DoMigration:
                 create(business_id=restaurant['business_id'], name=restaurant['name'],
                        address=restaurant.get('address'), city=restaurant.get('city'),
                        state=restaurant.get('state'), postal_code=restaurant.get('postal_code'),
-                       latitude=float(restaurant.get('latitude')), longitude=float(restaurant.get('longitude')),
-                       stars=float(restaurant.get('stars', 0)), review_cnt=int(restaurant.get('review_count', 0)),
-                       is_open=bool(restaurant.get('is_open', 0)),
-                       attributes=dict(restaurant.get('attributes', {})))
+                       latitude=float(restaurant.get('latitude') or 0),
+                       longitude=float(restaurant.get('longitude') or 0),
+                       stars=float(restaurant.get('stars', 0) or 0),
+                       review_cnt=int(restaurant.get('review_count', 0) or 0),
+                       is_open=bool(restaurant.get('is_open', 0) or 0),
+                       attributes=dict(restaurant.get('attributes', {}) or {}))
             restaurant_category_names = [r for r in restaurant.get('categories').split(', ')]
             for category in restaurant_category_names:
                 if category not in created_categories:
                     created_categories[category] = CategoryModel.objects.create(name=category)
                 restaurant_object.categories.add(created_categories[category])
-            restaurant_hours = restaurant.get('hours')
-            restaurant_hours = {} if restaurant_hours is None else restaurant_hours
+            restaurant_hours = restaurant.get('hours') or {}
             for day in restaurant_hours.keys():
                 open_time, close_time = restaurant_hours[day].split('-')
                 open_time, close_time = datetime.strptime(open_time, "%H:%M").time(), \
