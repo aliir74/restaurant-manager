@@ -8,10 +8,6 @@ from restaurantManager.models.business_hour import BusinessHours
 from django.contrib.auth.hashers import make_password
 
 
-
-# TODO: check all data inserted correctly (specifically null values in json)
-
-
 def get_necessary_models(apps):
     User = apps.get_model('restaurantManager', 'User')
     Restaurant = apps.get_model('restaurantManager', 'Restaurant')

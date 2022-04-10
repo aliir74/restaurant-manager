@@ -120,7 +120,7 @@ class GetReviewDetail:
     }
     review_id_param = Parameter('review_id', IN_PATH, description="Get Review Details", type=TYPE_STRING)
 
-#TODO: test it
+
 class AddReview:
     REQUEST_SCHEMA = Schema(
         type=TYPE_OBJECT,
@@ -149,10 +149,33 @@ class AddReview:
     )
 
     RESPONSE_SCHEMA = {
-        status.HTTP_201_CREATED: ReviewModelSchema.schema
+        status.HTTP_201_CREATED: Schema(
+            type=TYPE_OBJECT,
+            properties={
+                'review_id': Schema(
+                    type=TYPE_STRING,
+                    title='Review Id',
+                ),
+                'stars': Schema(
+                    type=TYPE_NUMBER,
+                    title="Review Stars",
+                    description=''
+                ),
+                'text': Schema(
+                    type=TYPE_STRING,
+                    title="Review Text",
+                    description=""
+                )
+            },
+            example={
+                "review_id": "laksjdlakjsdkljsd",
+                "stars": 4.0,
+                "text": "llkjaslkjlkjalksdjalksdj"
+            },
+        )
     }
 
-#TODO: test it
+
 class DeleteReview:
     REQUEST_SCHEMA = Schema(
         type=TYPE_OBJECT,
@@ -181,6 +204,6 @@ class DeleteReview:
     )
 
     RESPONSE_SCHEMA = {
-        status.HTTP_200_OK: ReviewModelSchema.schema
+        status.HTTP_204_NO_CONTENT: "No Content"
     }
     review_id_param = Parameter('review_id', IN_PATH, description="Delete Review", type=TYPE_STRING)
