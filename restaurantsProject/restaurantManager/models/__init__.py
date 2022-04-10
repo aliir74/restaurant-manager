@@ -4,7 +4,6 @@ from restaurantManager.models.restaurant import Restaurant
 from restaurantManager.models.review import Review
 from restaurantManager.models.user import User
 
-# TODO: set unique if it's important to be unique
 __all__ = [
     "BusinessHours",
     "Category",
