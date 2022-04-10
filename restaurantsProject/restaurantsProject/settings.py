@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+import sys
 
 from pathlib import Path
 
@@ -147,36 +148,7 @@ LOGGING = {
     },
 }
 
-LOGGING = {
-        'core.handlers': {
-            'level': 'DEBUG',
-            'handlers': ['console']
-        },
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'default': {
-                'format': '[DJANGO] %(levelname)s %(asctime)s %(module)s '
-                          '%(name)s.%(funcName)s:%(lineno)s: %(message)s'
-            },
-        },
-        'handlers': {
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'default',
-            }
-        },
-        'loggers': {
-            '*': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': True,
-            }
-        },
-    }
-
-LIMITED_RESULT_NUMBER = int(os.getenv("LIMITED_RESULT_NUMBER=5", 5))
+LIMITED_RESULT_NUMBER = int(os.getenv("LIMITED_RESULT_NUMBER", 5))
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -188,11 +160,18 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = "restaurantManager.User"
 
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
-    'django.contrib.auth.hashers.SHA1PasswordHasher',
-    'django.contrib.auth.hashers.MD5PasswordHasher',
-    'django.contrib.auth.hashers.CryptPasswordHasher'
-)
+TESTING = 'test' in sys.argv[1:]
+if TESTING:
+    print('=========================')
+    print('In TEST Mode - Disableling Migrations')
+    print('=========================')
+
+    class DisableMigrations(object):
+
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return None
+
+    MIGRATION_MODULES = DisableMigrations()

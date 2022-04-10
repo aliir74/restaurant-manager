@@ -7,7 +7,7 @@ class UserTests(APITestCase):
     def setUp(self) -> None:
         self.username = 'ali'
         self.password = 'ali123'
-        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.user = User.objects.create(username=self.username, password=self.password)
 
     def test_add_stars(self):
         star = random.randint(0, 10)/2
@@ -15,5 +15,5 @@ class UserTests(APITestCase):
 
         self.user.refresh_from_db()
 
-        self.assertEqual(self.user.stars, star)
-        self.assertEqual(self.user.review_cnt, 1)
+        self.assertEqual(self.user.average_stars, star)
+        self.assertEqual(self.user.stars_cnt, 1)
