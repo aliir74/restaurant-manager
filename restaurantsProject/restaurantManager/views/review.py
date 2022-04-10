@@ -3,8 +3,8 @@ from rest_framework import mixins
 from rest_framework import permissions
 from drf_yasg.utils import swagger_auto_schema
 
-from restaurantManager.models import Review as ReviewModel
-from restaurantManager.serializers import ReviewWriteSerializer, ReviewReadSerializer
+from restaurantManager.models import Review as ReviewModel, User
+from restaurantManager.serializers import ReviewWriteSerializer, ReviewReadSerializer, ReadWriteSerializerMixin
 from restaurantManager.permissions import IsOwnerOrReadOnly, IsOwner
 from restaurantManager.api_docs.review import AddReview as AddReviewAPIDoc, DeleteReview as DeleteReviewAPIDoc,\
     GetReviewDetail as GetReviewDetailAPIDoc, GetMyReviews as GetMyReviewsAPIDoc, \
@@ -29,7 +29,7 @@ class ReviewDetail(generics.RetrieveDestroyAPIView):
         return self.destroy(request, *args, **kwargs)
 
 
-class ReviewUserList(mixins.CreateModelMixin, generics.ListAPIView):
+class ReviewUserList(ReadWriteSerializerMixin, mixins.CreateModelMixin, generics.ListAPIView):
     write_serializer_class = ReviewWriteSerializer
     read_serializer_class = ReviewReadSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
@@ -46,7 +46,7 @@ class ReviewUserList(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return user.reviews.all()
+        return ReviewModel.objects.filter(user_id=user.id)
 
 
 class ReviewList(generics.ListAPIView):
