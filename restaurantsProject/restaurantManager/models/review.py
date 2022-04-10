@@ -25,4 +25,3 @@ class Review(BaseModel):
             super().save(*args, **kwargs)
         else:  # update process
             pass
-            # TODO: handle update review?

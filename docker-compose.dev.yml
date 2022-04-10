@@ -20,7 +20,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - db # TODO: doesnt work properly
+      - db
     command: >
       /bin/bash -c "
       python manage.py migrate &&

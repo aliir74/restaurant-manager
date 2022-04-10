@@ -5,8 +5,6 @@ import uuid
 from restaurantManager.models import Review, Restaurant
 from restaurantManager.serializers.limited_list import LimitedListSerializer
 
-# TODO: clarify required paramters in all serializers
-
 
 class ReviewWriteSerializer(serializers.ModelSerializer):
     restaurant_id = serializers.CharField(required=True, write_only=True)
