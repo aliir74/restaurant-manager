@@ -10,11 +10,11 @@ from restaurantManager.models.base import BaseModel
 
 
 class User(AbstractUser, BaseModel):
-    user_id = models.CharField(max_length=32, null=False)
+    user_id = models.CharField(max_length=32, null=False, unique=True)
     name = models.CharField(max_length=30, null=False)
     useful = models.IntegerField(default=0)
     average_stars = models.FloatField(default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
-    stars_cnt = models.IntegerField(default=0)  # TODO: migration and fill others data
+    stars_cnt = models.IntegerField(default=0)
 
     @transaction.atomic
     def add_stars(self, star):

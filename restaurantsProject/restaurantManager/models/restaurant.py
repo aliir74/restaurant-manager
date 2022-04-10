@@ -8,7 +8,7 @@ from restaurantManager.models.category import Category
 
 
 class Restaurant(BaseModel):
-    business_id = models.CharField(max_length=32, null=False)
+    business_id = models.CharField(max_length=32, null=False, unique=True)
     name = models.CharField(max_length=50, null=False)
     address = models.CharField(max_length=100, null=True)
     city = models.CharField(max_length=30, null=True)  # If we work only on Canada, We can add "Choices" to this field

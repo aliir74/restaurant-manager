@@ -6,16 +6,15 @@ from restaurantManager.models.user import User
 from restaurantManager.models.restaurant import Restaurant
 
 
-
 class Review(BaseModel):
-    review_id = models.CharField(max_length=32, null=False)
+    review_id = models.CharField(max_length=32, null=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reviews')
     stars = models.FloatField(null=False, validators=[MaxValueValidator(5), MinValueValidator(0)])
     useful = models.IntegerField(default=0)
     funny = models.IntegerField(default=0)
     cool = models.IntegerField(default=0)
-    text = models.CharField(max_length=5000, null=False)  # TODO: check we have only star reviews or not
+    text = models.CharField(max_length=5000, null=False)
     publish_date = models.DateTimeField(null=False)
 
     @transaction.atomic
