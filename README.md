@@ -22,13 +22,13 @@ This is a simple restaurant manager project.
 ![Database Diagram](db_schema.png)
 
 ### More Details
-####Database Models
+#### Database Models
 As you see in the above picture, We have three primary models for our database: _User_, _Restaurant_ and _Review_. 
 Also, I developed two other models for better design: _Category_ and _BusinessHour_.
 The main idea of the model's fields came from seed data, but I added some additional fields. 
 For example, we needed the number of reviews each user has to update the average_stars value quickly.
 
-####SQL vs. NoSQL
+#### SQL vs. NoSQL
 I chose Postgres as a relational database because there is a connection between different entities we have. 
 Also, the number of data isn't too much for a relational database. But maybe after scaling up the service, 
 it's better to think about NoSQL databases.
