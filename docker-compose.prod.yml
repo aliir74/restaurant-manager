@@ -24,6 +24,7 @@ services:
     command: >
       /bin/bash -c "
       python manage.py migrate &&
+      python manage.py collectstatic --no-input &&
       rm -rf seed_data && 
       gunicorn restaurantsProject.wsgi:application --bind 0.0.0.0:8000
       "
